@@ -23,13 +23,15 @@ public struct LinkAttachmentContainer<Factory: ViewFactory>: View {
         message: ChatMessage,
         width: CGFloat,
         isFirst: Bool,
-        scrolledId: Binding<String?>
+        scrolledId: Binding<String?>,
+        onTapAction: (() -> Void)? = nil
     ) {
         self.factory = factory
         self.message = message
         self.width = width
         self.isFirst = isFirst
         _scrolledId = scrolledId
+        self.onTapAction = onTapAction
     }
 
     public var body: some View {
@@ -69,7 +71,8 @@ public struct LinkAttachmentContainer<Factory: ViewFactory>: View {
                 LinkAttachmentView(
                     linkAttachment: message.linkAttachments[0],
                     width: width,
-                    isFirst: isFirst
+                    isFirst: isFirst,
+                    onTapAction: onTapAction
                 )
             }
         }
