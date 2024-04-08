@@ -57,14 +57,19 @@ class OnlyLinkTappableTextView: UITextView, AccessibilityView {
            let position = closestPosition(to: point, within: range),
            let styles = textStyling(at: position, in: .forward),
            styles[.link] != nil {
-               let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
-            if (appDelegate?.containsMospacePattern(urlString: self.text) ?? false) {
+            if (containsMospacePattern(urlString: self.text) ?? false) {
                 return nil
             }
             return super.hitTest(point, with: event)
         } else {
             return nil
         }
+    }
+    func containsMospacePattern(urlString: String) -> Bool {
+        let regex = #"mospace\/\d+"#
+        let range = NSRange(location: 0, length: urlString.utf16.count)
+        let pattern = try! NSRegularExpression(pattern: regex)
+        return pattern.firstMatch(in: urlString, options: [], range: range) != nil
     }
 }
 
