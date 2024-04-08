@@ -49,6 +49,7 @@ struct LinkTextView: UIViewRepresentable {
 }
 
 /// Text View that ignores all user interactions except touches on links
+
 class OnlyLinkTappableTextView: UITextView, AccessibilityView {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if let range = characterRange(at: point),
@@ -56,6 +57,10 @@ class OnlyLinkTappableTextView: UITextView, AccessibilityView {
            let position = closestPosition(to: point, within: range),
            let styles = textStyling(at: position, in: .forward),
            styles[.link] != nil {
+               let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
+            if (appDelegate?.containsMospacePattern(urlString: self.text) ?? false) {
+                return nil
+            }
             return super.hitTest(point, with: event)
         } else {
             return nil
