@@ -169,6 +169,11 @@ public struct MessageTextView<Factory: ViewFactory>: View {
                 .padding(.top, topPadding)
                 .padding(.bottom, bottomPadding)
                 .fixedSize(horizontal: false, vertical: true)
+            .onTapGesture {
+            
+            // Do Nothing    
+            
+        }
         }
         .modifier(
             factory.makeMessageViewModifier(
