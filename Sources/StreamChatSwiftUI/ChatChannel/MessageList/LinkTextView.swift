@@ -65,6 +65,14 @@ class OnlyLinkTappableTextView: UITextView, AccessibilityView {
             return nil
         }
     }
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+           // check for the url string for performing your own custom actions here
+          let urlString = URL.absoluteString
+        
+           // Return NO if you don't want iOS to open the link
+            return false
+         }
     func containsMospacePattern(urlString: String) -> Bool {
         let regex = #"mospace\/\d+"#
         let range = NSRange(location: 0, length: urlString.utf16.count)
