@@ -144,11 +144,11 @@ public struct LinkAttachmentView: View {
         .padding(.horizontal, padding)
         .onTapGesture {
             if let url = linkAttachment.originalURL.secureURL, UIApplication.shared.canOpenURL(url) {
-                if (containsMospacePattern(urlString: self.text) ?? false) {
+                // if (containsMospacePattern(urlString: self.text) ?? false) {
                     onTapAction?()
-                } else {
-                   UIApplication.shared.open(url, options: [:])
-                }
+                // } else {
+                //    UIApplication.shared.open(url, options: [:])
+                // }
                 
             }
         }
@@ -163,9 +163,3 @@ public struct LinkAttachmentView: View {
         linkAttachment.author == nil
     }
 }
- func containsMospacePattern(urlString: String) -> Bool {
-        let regex = #"mospace\/\d+"#
-        let range = NSRange(location: 0, length: urlString.utf16.count)
-        let pattern = try! NSRegularExpression(pattern: regex)
-        return pattern.firstMatch(in: urlString, options: [], range: range) != nil
-    }
