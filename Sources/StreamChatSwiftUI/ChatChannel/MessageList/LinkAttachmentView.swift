@@ -10,7 +10,7 @@ import SwiftUI
 public struct LinkAttachmentContainer<Factory: ViewFactory>: View {
     @Injected(\.colors) private var colors
     @Injected(\.utils) private var utils
-
+    var onTapAction: (() -> Void)?
     var factory: Factory
     var message: ChatMessage
     var width: CGFloat
@@ -144,9 +144,14 @@ public struct LinkAttachmentView: View {
         }
         .padding(.horizontal, padding)
         .onTapGesture {
-            // if let url = linkAttachment.originalURL.secureURL, UIApplication.shared.canOpenURL(url) {
-            //     UIApplication.shared.open(url, options: [:])
-            // }
+            if let url = linkAttachment.originalURL.secureURL, UIApplication.shared.canOpenURL(url) {
+                if (containsMospacePattern(urlString: self.text) ?? false) {
+                    onTapAction?()
+                } else {
+                   UIApplication.shared.open(url, options: [:])
+                }
+                
+            }
         }
         .accessibilityIdentifier("LinkAttachmentView")
     }
@@ -159,3 +164,9 @@ public struct LinkAttachmentView: View {
         linkAttachment.author == nil
     }
 }
+ func containsMospacePattern(urlString: String) -> Bool {
+        let regex = #"mospace\/\d+"#
+        let range = NSRange(location: 0, length: urlString.utf16.count)
+        let pattern = try! NSRegularExpression(pattern: regex)
+        return pattern.firstMatch(in: urlString, options: [], range: range) != nil
+    }
