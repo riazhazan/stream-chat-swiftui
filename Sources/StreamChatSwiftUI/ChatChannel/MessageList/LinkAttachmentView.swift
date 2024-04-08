@@ -144,9 +144,9 @@ public struct LinkAttachmentView: View {
         }
         .padding(.horizontal, padding)
         .onTapGesture {
-            if let url = linkAttachment.originalURL.secureURL, UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:])
-            }
+            // if let url = linkAttachment.originalURL.secureURL, UIApplication.shared.canOpenURL(url) {
+            //     UIApplication.shared.open(url, options: [:])
+            // }
         }
         .accessibilityIdentifier("LinkAttachmentView")
     }
