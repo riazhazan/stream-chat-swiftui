@@ -147,11 +147,11 @@ public struct LinkAttachmentView: View {
         .padding(.horizontal, padding)
         .onTapGesture {
             if let url = linkAttachment.originalURL.secureURL, UIApplication.shared.canOpenURL(url) {
-                // if (containsMospacePattern(urlString: self.text) ?? false) {
+                if (onTapAction?() != nil) {
                     onTapAction?()
-                // } else {
-                //    UIApplication.shared.open(url, options: [:])
-                // }
+                } else {
+                   UIApplication.shared.open(url, options: [:])
+                }
                 
             }
         }
