@@ -10,13 +10,12 @@ import SwiftUI
 public struct LinkAttachmentContainer<Factory: ViewFactory>: View {
     @Injected(\.colors) private var colors
     @Injected(\.utils) private var utils
-    var onTapAction: (() -> Void)?
     var factory: Factory
     var message: ChatMessage
     var width: CGFloat
     var isFirst: Bool
     @Binding var scrolledId: String?
-
+    var onTapAction: (() -> Void)?
     private let padding: CGFloat = 8
     
     public init(
@@ -98,7 +97,7 @@ public struct LinkAttachmentView: View {
     var linkAttachment: ChatMessageLinkAttachment
     var width: CGFloat
     var isFirst: Bool
-
+    var onTapAction: (() -> Void)?
     public var body: some View {
         VStack(alignment: .leading, spacing: padding) {
             if !imageHidden {
